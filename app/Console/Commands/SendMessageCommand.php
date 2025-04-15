@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Events\MessageSent;
 use Illuminate\Console\Command;
+use function Laravel\Prompts\text; //Importar la función text de Laravel Prompts
+
 
 class SendMessageCommand extends Command
 {
@@ -11,20 +14,32 @@ class SendMessageCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:send-message-command';
+    protected $signature = 'send:message'; //Enviar un mensaje
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send a message to the chat or channel.'; //Enviar un mensaje a el chat o canal.
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-        //
+        $name = text(
+            //Ingrese su nombre
+            label: 'Enter your name:',
+            required: true,
+        );
+
+        $message = text(
+            //Ingrese su mensaje
+            label: 'Enter your message:',
+            required: true,
+        );
+
+        MessageSent::dispatch($name, $message);
     }
 }
