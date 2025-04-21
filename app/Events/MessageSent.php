@@ -17,13 +17,13 @@ class MessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public string $name;
-    public string $message;
+    public function __construct(
+        public string $name,
+        public string $message,
 
-    public function __construct($name, $message)
+    )
     {
-        $this->name = $name;
-        $this->message = $message;
+        //
     }
 
     /**
@@ -33,8 +33,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn(): Channel
     {
-
-        return new Channel('messages');
-
+        return new PrivateChannel('messages'); //Canal privado
     }
 }

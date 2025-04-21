@@ -18,4 +18,5 @@ window.Echo = new Echo({
 window.Echo.channel('messages')
     .listen('MessageSent', (e) => {
         console.log(e);
+
     });
